@@ -15,6 +15,7 @@ namespace TechLibrary.Controllers.Tests
 
         private  Mock<ILogger<AgencyController>> _mockLogger;
         private  Mock<IAgencyService> _mockAgencyService;
+        private Mock<IQueryService> _mockQueryService;
         private NullReferenceException _expectedException;
 
         [OneTimeSetUp]
@@ -22,6 +23,7 @@ namespace TechLibrary.Controllers.Tests
         {
             _expectedException = new NullReferenceException("Test Failed...");
             _mockLogger = new Mock<ILogger<AgencyController>>();
+            _mockQueryService = new Mock<IQueryService>();
             _mockAgencyService = new Mock<IAgencyService>();
         }
 
@@ -30,7 +32,7 @@ namespace TechLibrary.Controllers.Tests
         {
             //  Arrange
             _mockAgencyService.Setup(b => b.GetAgenciesAsync()).Returns(Task.FromResult(It.IsAny<List<Domain.Agency>>()));
-            var sut = new AgencyController(_mockLogger.Object, _mockAgencyService.Object);
+            var sut = new AgencyController(_mockLogger.Object, _mockAgencyService.Object, _mockQueryService.Object);
 
             //  Act
             var result = await sut.GetAll();

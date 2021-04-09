@@ -27,6 +27,8 @@ namespace TechLibrary
             services.AddScoped<IAgentLeadService, AgentLeadService>();
             services.AddScoped<IAgentService, AgentService>();
             services.AddScoped<ILeadService, LeadService>();
+            services.AddScoped<IQueryService, QueryService>();
+            services.AddScoped<IDataQuery, DataQuery>();
 
             services.AddCors(options =>
             {

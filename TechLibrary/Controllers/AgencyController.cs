@@ -12,11 +12,13 @@ namespace TechLibrary.Controllers
     {
         private readonly ILogger<AgencyController> _logger;
         private readonly IAgencyService _agencyService;
+        private readonly IQueryService _queryService;
 
-        public AgencyController(ILogger<AgencyController> logger, IAgencyService agencyService)
+        public AgencyController(ILogger<AgencyController> logger, IAgencyService agencyService, IQueryService queryService)
         {
             _logger = logger;
             _agencyService = agencyService;
+            _queryService = queryService;
         }
 
         [HttpGet]
@@ -25,6 +27,9 @@ namespace TechLibrary.Controllers
             _logger.LogInformation("Get all agencies");
 
             var agencies = await _agencyService.GetAgenciesAsync();
+            
+            //  Example of calling QueryService vs. Entity Framework DataContext:
+            //var qAgencies = await _queryService.GetAgenciesAsync();
 
             return Ok(agencies);
         }
